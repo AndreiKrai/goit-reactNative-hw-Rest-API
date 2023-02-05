@@ -2,8 +2,12 @@ const RequestError = require("../errors/helpers/requestErors");
 const { Contact } = require("../models/contact");
 
 const get = async (req, res, next) => {
+  const { _id: owner } = req.user;
   try {
-    const result = await Contact.find();
+    const result = await Contact.find({ owner }, "-createdAt -updatedAt");
+    // in that case will show all the base
+    // const result = await Contact.find( );
+
     res.json(result);
   } catch (e) {
     console.error(e);
@@ -26,9 +30,11 @@ const getById = async (req, res, next) => {
 };
 
 const create = async (req, res, next) => {
-  const { name, email, phone } = req.body;
+  // req.user приходить з мідлвару  аутентифікація
+  const { _id: owner } = req.user;
+  // console.log({ name, email, phone }, owner);
   try {
-    const result = await Contact.create({ name, email, phone });
+    const result = await Contact.create({ ...req.body, owner });
     res.status(201).json(result);
   } catch (e) {
     console.error(e);

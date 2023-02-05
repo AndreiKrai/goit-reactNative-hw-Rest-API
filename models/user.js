@@ -15,28 +15,24 @@ const userSchema = Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    name: {
+    subscription: {
       type: String,
+      enum: ["starter", "pro", "business"],
+      default: "starter",
     },
-    //   subscription: {
-    //     type: String,
-    //     enum: ["starter", "pro", "business"],
-    //     default: "starter",
-    //   },
-    //   token: {
-    //     type: String,
-    //     default: null,
-    //   },
+    token: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );
 
 const registerSchema = Joi.object({
-  name: Joi.string().required(),
   //   email: Joi.string().pattern(emailRegex).required(),
   email: Joi.string().required(),
-
   password: Joi.string().min(6).required(),
+  subscription: Joi.string(),
 });
 
 const loginSchema = Joi.object({
@@ -44,7 +40,9 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-const schemas={registerSchema, loginSchema}
+// const schemas = { registerSchema, loginSchema };
 const User = model("user", userSchema);
 
-module.exports = { User,schemas  };
+module.exports = { User, registerSchema, loginSchema };
+
+// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGZhN2NkYzI1MTI2ZWIzODM3YWQ0NyIsImlhdCI6MTY3NTYwMTg5OCwiZXhwIjoxNjc1Njg4Mjk4fQ.1d1v6tgewyoPafoWlwphD5DtwwxaZNa-JjEq0doGQE0"

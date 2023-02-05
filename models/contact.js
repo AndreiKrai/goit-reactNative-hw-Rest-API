@@ -19,6 +19,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: [false, "Set owner for contact"],
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -35,4 +40,4 @@ const schemas = { addShema, updateFavoriteSchema };
 const Contact = model("contact", contactSchema);
 // const Contact = model( "contact" - така ж назва як і в створенної колекціі в базі данних, тільки в однині, мангус зрозуміє  , contactSchema);
 
-module.exports = { Contact, schemas, updateFavoriteSchema };
+module.exports = { Contact, addShema, updateFavoriteSchema };
