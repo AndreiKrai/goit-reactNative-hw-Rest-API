@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const emailRegex = /^[a-z0-9]+@[a-z].+\.[a-z]{2,3}$/;
 const userSchema = Schema(
   {
     password: {
@@ -23,6 +22,9 @@ const userSchema = Schema(
     token: {
       type: String,
       default: null,
+    },
+    avatarURL: {
+      type: String,
     },
   },
   { versionKey: false, timestamps: true }
