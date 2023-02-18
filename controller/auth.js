@@ -18,7 +18,9 @@ const register = async (req, res, next) => {
     // хешування паролю,складність 10
     const hasPasword = await bcrypt.hash(password, 10);
     const result = await User.create({ email, password: hasPasword });
-    res.status(201).json({ email: result.email });
+    res
+      .status(201)
+      .json({ email: result.email, subscription: result.subscription });
   } catch (e) {
     console.error(e);
     next(e);

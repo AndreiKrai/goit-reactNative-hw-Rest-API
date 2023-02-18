@@ -6,8 +6,8 @@ const authenticate = require("../../middlewares/authenticate");
 const router = express.Router();
 
 router.post("/register", validateBody(registerSchema), ctrlAuth.register);
-router.post("/login", validateBody(loginSchema), ctrlAuth.login);
-router.get("/logout", authenticate, ctrlAuth.logout);
+router.get("/login", validateBody(loginSchema), ctrlAuth.login);
+router.post("/logout", authenticate, ctrlAuth.logout);
 router.get("/current", authenticate, ctrlAuth.getCurrent);
 
 module.exports = router;
