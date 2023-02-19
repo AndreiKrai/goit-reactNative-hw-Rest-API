@@ -1,6 +1,10 @@
 const express = require("express");
 const ctrlAuth = require("../../controller/auth");
-const { registerSchema, loginSchema } = require("../../models/user");
+const {
+  registerSchema,
+  loginSchema,
+  emailSchema,
+} = require("../../models/user");
 const validateBody = require("../../middlewares/validateBody");
 const authenticate = require("../../middlewares/authenticate");
 const upload = require("../../middlewares/upload");
@@ -16,5 +20,7 @@ router.patch(
   upload.single("avatar"),
   ctrlAuth.updateAvatar
 );
+router.get("/verify/:verificationToken", ctrlAuth.verification);
+router.post("/verify", validateBody(emailSchema), ctrlAuth.resendVerification);
 
 module.exports = router;
