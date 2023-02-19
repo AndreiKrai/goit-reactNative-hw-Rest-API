@@ -1,8 +1,8 @@
 const app = require("./app");
 const mongoose = require("mongoose");
+// construction to get data from .env file with paswords and keys
 const dotenv = require("dotenv");
 dotenv.config();
-
 const { DB_HOST, PORT = 3000 } = process.env;
 
 mongoose.set("strictQuery", false);
