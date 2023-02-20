@@ -3,7 +3,6 @@ const { User } = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const { assert } = require("joi");
 
 dotenv.config();
 const { SECRET_KEY } = process.env;
