@@ -32,7 +32,6 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   // req.user приходить з мідлвару  аутентифікація
   const { _id: owner } = req.user;
-  // console.log({ name, email, phone }, owner);
   try {
     const result = await Contact.create({ ...req.body, owner });
     res.status(201).json(result);
