@@ -41,6 +41,7 @@ const register = async (req, res, next) => {
       text: `Verify your email by this link: ${BASE_URL}/api/users/verify/${verificationToken}`,
       // here we can put any HTML
       html: createHTML(email, BASE_URL, verificationToken),
+      // html:`<a target="_blank" href="${BASE_URL}/api/auth/users/verify/${verificationToken}">Click to verify your email</a>`
     };
 
     await sendMail(mail);
@@ -150,7 +151,9 @@ const resendVerification = async (req, res, _) => {
   if (!user) throw RequestError(404, "User not found");
 
   if (user.verify) {
-    throw RequestError(400, "Verification has already been passed");
+    return res
+      .status(400)
+      .json({ message: "Verification has already been passed" });
   }
 
   const mail = {

@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const userSchema = Schema(
+  // if you didn't add some field it woun't apear in userDB
   {
     password: {
       type: String,
@@ -25,6 +26,11 @@ const userSchema = Schema(
     },
     avatarURL: {
       type: String,
+    },
+    verificationToken: { type: String },
+    verify: {
+      type: Boolean,
+      default: false,
     },
   },
   { versionKey: false, timestamps: true }
