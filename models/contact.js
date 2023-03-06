@@ -24,6 +24,14 @@ const contactSchema = new Schema(
       ref: "user",
       required: [false, "Set owner for contact"],
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -34,8 +42,6 @@ const addShema = Joi.object({
   phone: Joi.string().required(),
 });
 const updateFavoriteSchema = Joi.object({ favorite: Joi.boolean().required() });
-
-const schemas = { addShema, updateFavoriteSchema };
 
 const Contact = model("contact", contactSchema);
 // const Contact = model( "contact" - така ж назва як і в створенної колекціі в базі данних, тільки в однині, мангус зрозуміє  , contactSchema);

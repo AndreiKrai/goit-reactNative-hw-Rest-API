@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const userSchema = Schema(
+  // if you didn't add some field it woun't apear in userDB
   {
     password: {
       type: String,
@@ -26,6 +27,11 @@ const userSchema = Schema(
     avatarURL: {
       type: String,
     },
+    verificationToken: { type: String },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -42,9 +48,12 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().required(),
+});
 // const schemas = { registerSchema, loginSchema };
 const User = model("user", userSchema);
 
-module.exports = { User, registerSchema, loginSchema };
+module.exports = { User, registerSchema, loginSchema, emailSchema };
 
 // "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGZhN2NkYzI1MTI2ZWIzODM3YWQ0NyIsImlhdCI6MTY3NTYwMTg5OCwiZXhwIjoxNjc1Njg4Mjk4fQ.1d1v6tgewyoPafoWlwphD5DtwwxaZNa-JjEq0doGQE0"
